@@ -1,29 +1,16 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "g++ build and debug active file",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
-            "preLaunchTask": "g++ build active file",
-            "miDebuggerPath": "/usr/bin/gdb"
-        }
-    ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "cppvsdbg",
+			"request": "launch",
+			"name": "QuangDebug",
+			"program": "C:\\Users\\pc\\source\\repos\\vscode-debug-visualizer\\demos\\cpp\\test.exe",
+			"args": [],
+			"cwd": "${workspaceFolder}",
+			"symbolSearchPath": "${workspaceFolder}",
+			"preLaunchTask": "clang build active file",
+			"visualizerFile": "${workspaceFolder}\\string.natvis"
+		}
+	]
 }

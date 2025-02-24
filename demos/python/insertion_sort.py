@@ -1,5 +1,5 @@
 """Python demo for sorting using VS Code Debug Visualizer."""
-
+import json
 
 def serialize(arr):
     """Serialize an array into a format the visualizer can understand."""
@@ -13,7 +13,12 @@ def serialize(arr):
             }
         ],
     }
-    return formatted
+    formatted = {
+        "kind": {"graph": True},
+        "nodes": [{"id":"1"},{"id":"2"}],
+        "edges": [{"from":"1","to":"2"}]
+    }
+    return json.dumps(formatted)
 
 
 arr = [6, 9, 3, 12, 1, 11, 5, 13, 8, 14, 2, 4, 10, 0, 7]

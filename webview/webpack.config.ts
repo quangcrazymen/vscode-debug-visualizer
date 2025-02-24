@@ -8,6 +8,7 @@ import MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 const r = (file: string) => path.resolve(__dirname, file);
 
 module.exports = {
+	mode: "development",
 	entry: [r("src/index.tsx")],
 	output: {
 		path: r("dist"),

@@ -2,6 +2,13 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"name": "Python Debugger: Current File",
+			"type": "debugpy",
+			"request": "launch",
+			"program": "${file}",
+			"console": "integratedTerminal"
+		},
+		{
 			"type": "chrome",
 			"request": "launch",
 			"name": "Launch Chrome",
@@ -13,10 +20,7 @@
 			"type": "extensionHost",
 			"request": "launch",
 			"runtimeExecutable": "${execPath}",
-			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}/extension",
-				"${workspaceFolder}/demos/php"
-			],
+			"args": ["--extensionDevelopmentPath=${workspaceFolder}/extension", "${workspaceFolder}/demos/php"],
 			"env": {
 				"HOT_RELOAD": "true",
 				"USE_DEV_UI": ""
@@ -25,14 +29,24 @@
 			"preLaunchTask": "npm: dev - extension"
 		},
 		{
-			"name": "Run Extension (Hot Reload + Dev UI)",
+			"name": "Run Extension (Hot Reload + Dev UI) python",
 			"type": "extensionHost",
 			"request": "launch",
 			"runtimeExecutable": "${execPath}",
-			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}/extension",
-				"${workspaceFolder}/demos/php"
-			],
+			"args": ["--extensionDevelopmentPath=${workspaceFolder}/extension", "${workspaceFolder}/demos/python"],
+			"env": {
+				"HOT_RELOAD": "true",
+				"USE_DEV_UI": "true"
+			},
+			"outFiles": ["${workspaceFolder}/extension/dist/**/*.js"],
+			"preLaunchTask": "npm: dev - extension"
+		},
+		{
+			"name": "Run Extension (Hot Reload + Dev UI) cpp",
+			"type": "extensionHost",
+			"request": "launch",
+			"runtimeExecutable": "${execPath}",
+			"args": ["--extensionDevelopmentPath=${workspaceFolder}/extension", "${workspaceFolder}/demos/cpp"],
 			"env": {
 				"HOT_RELOAD": "true",
 				"USE_DEV_UI": "true"
@@ -45,10 +59,7 @@
 			"type": "extensionHost",
 			"request": "launch",
 			"runtimeExecutable": "${execPath}",
-			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}/extension",
-				"${workspaceFolder}/demos/js"
-			],
+			"args": ["--extensionDevelopmentPath=${workspaceFolder}/extension", "${workspaceFolder}/demos/js"],
 			"env": {
 				"HOT_RELOAD": "",
 				"USE_DEV_UI": ""
@@ -60,10 +71,7 @@
 			"type": "extensionHost",
 			"request": "launch",
 			"runtimeExecutable": "${execPath}",
-			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}/extension",
-				"${workspaceFolder}/demos/js"
-			],
+			"args": ["--extensionDevelopmentPath=${workspaceFolder}/extension", "${workspaceFolder}/demos/js"],
 			"env": {
 				"HOT_RELOAD": "",
 				"USE_DEV_UI": "true"

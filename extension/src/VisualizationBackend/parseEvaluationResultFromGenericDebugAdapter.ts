@@ -1,8 +1,6 @@
-import {
-	DataExtractionResult,
-	isVisualizationData,
-} from "@hediet/debug-visualizer-data-extraction";
+import { DataExtractionResult, isVisualizationData } from "@hediet/debug-visualizer-data-extraction";
 import { FormattedMessage } from "../webviewContract";
+import { json } from "express";
 
 export interface ParseEvaluationResultContext {
 	debugAdapterType: string;
@@ -11,22 +9,20 @@ export interface ParseEvaluationResultContext {
 export function parseEvaluationResultFromGenericDebugAdapter(
 	resultText: string,
 	context: ParseEvaluationResultContext
-):
-	| { kind: "data"; result: DataExtractionResult }
-	| { kind: "error"; message: FormattedMessage } {
+): { kind: "data"; result: DataExtractionResult } | { kind: "error"; message: FormattedMessage } {
 	const jsonData = resultText.trim();
+	const firstDoubleQuote: number = jsonData.search('"');
+	let newjsonData = jsonData.slice(firstDoubleQuote);
+	newjsonData = newjsonData.replaceAll('\\"', '"');
 
 	let resultObj;
 	try {
 		try {
 			let jsonData2;
 			// Remove optionally enclosing characters.
-			if (
-				isEnclosedWith(jsonData, '"') ||
-				isEnclosedWith(jsonData, "'")
-			) {
+			if (isEnclosedWith(newjsonData, '"') || isEnclosedWith(newjsonData, "'")) {
 				// In case of JavaScript: `"{ "kind": { ... }, "text": "some\ntext" }"`
-				jsonData2 = jsonData.substr(1, jsonData.length - 2);
+				jsonData2 = newjsonData.substr(1, newjsonData.length - 2);
 			} else {
 				// Just in case no quoting is done.
 				jsonData2 = jsonData;
@@ -34,7 +30,7 @@ export function parseEvaluationResultFromGenericDebugAdapter(
 			resultObj = parseJson(jsonData2, context);
 		} catch (e) {
 			// in case of C++: `"{ \"kind\": { ... }, \"text\": \"some\\ntext\" }"`
-			const str = parseJson(jsonData, context);
+			const str = parseJson(newjsonData, context);
 			// str is now `{ "kind": { ... }, "text": "some\ntext" }"`
 			resultObj = parseJson(str, context);
 			// result is now { kind: { ... }, text: "some\ntext" }
@@ -53,11 +49,7 @@ export function parseEvaluationResultFromGenericDebugAdapter(
 								"Evaluation result was:",
 								{
 									kind: "code",
-									content: JSON.stringify(
-										resultObj,
-										undefined,
-										4
-									),
+									content: JSON.stringify(resultObj, undefined, 4),
 								},
 							],
 						},
